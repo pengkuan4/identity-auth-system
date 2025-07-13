@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>授权确认</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 90%;
+      border: 1px solid #e1e8ed;
+    }
+
+    h1 {
+      color: #2c3e50;
+      font-size: 2em;
+      margin-bottom: 30px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    p {
+      color: #6c757d;
+      font-size: 1em;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .info-item span {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .info-label {
+      font-weight: 500;
+      color: #495057;
+      margin-bottom: 5px;
+    }
+
+    form {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 120px;
+    }
+
+    button[value="accept"] {
+      color: white;
+      background: #4a90e2;
+    }
+
+    button[value="accept"]:hover {
+      background: #357abd;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    }
+
+    button[value="reject"] {
+      color: #6c757d;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+    }
+
+    button[value="reject"]:hover {
+      background: #e9ecef;
+      color: #495057;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .error {
+      background: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px;
+        margin: 20px;
+      }
+
+      h1 {
+        font-size: 1.7em;
+      }
+
+      form {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>授权确认</h1>
+
+  <div class="info-item">
+    <div class="info-label">请求应用:</div>
+    <span th:text="${client_id}"></span>
+  </div>
+
+  <div class="info-item">
+    <div class="info-label">请求的权限范围 (Scope):</div>
+    <span th:text="${scope}"></span>
+  </div>
+
+  <div class="info-item">
+    <div class="info-label">数据用途:</div>
+    <span th:text="${data_purpose}"></span>
+  </div>
+
+  <form method="post" action="/oauth2/authorize">
+    <input type="hidden" name="client_id" th:value="${client_id}">
+    <input type="hidden" name="redirect_uri" th:value="${redirect_uri}">
+    <input type="hidden" name="scope" th:value="${scope}">
+    <input type="hidden" name="state" th:value="${state}">
+    <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />  -->
+    <button type="submit" name="action" value="accept">同意授权</button>
+    <button type="submit" name="action" value="reject">拒绝授权</button>
+  </form>
+</div>
+</body>
+</html>

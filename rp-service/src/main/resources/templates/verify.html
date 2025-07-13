@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>身份验证</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid #e1e8ed;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 8px;
+            transition: border-color 0.2s ease;
+            background: #fafbfc;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4a90e2;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+            background: #4a90e2;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #357abd;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success {
+            background: #efe;
+            border: 1px solid #cfc;
+            color: #363;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .success p {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .success a {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .success a:hover {
+            background: #218838;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 1.7em;
+            }
+
+            input[type="text"] {
+                font-size: 16px; /* 防止iOS缩放 */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>身份验证</h1>
+    <form method="post" action="/verify">
+        <label>身份证号: <input type="text" name="idCard" required></label>
+        <label>姓名: <input type="text" name="name" required></label>
+        <label>营业执照 (可选): <input type="text" name="businessLicense"></label>
+        <button type="submit">验证</button>
+    </form>
+
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div th:if="${verified}" class="success">
+        <p>验证成功！</p>
+        <a th:href="@{/start-authorization}">开始授权</a> <!-- 使用 Thymeleaf 动态生成链接 -->
+    </div>
+</div>
+</body>
+</html>

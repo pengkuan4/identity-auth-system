@@ -1,0 +1,50 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+spring:
+  security:
+    oauth2:
+      client:
+        session:
+          session-fixation: none
+        registration:
+          keycloak:
+            client-id: rp-client
+            client-secret: Pczq7ARsflJWvrOZSaNup9OgZA7FcQXD
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8081/login/oauth2/code/keycloak
+            scope: openid
+          op-service:
+            client-id: rp-client
+            client-secret: rgHrt4zUgMGlEvFKoRGbZHKllOFFMZot
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8081/login/oauth2/code/op-service
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/your-realm
+            user-name-attribute: preferred_username
+          op-service:
+            authorization-uri: http://localhost:8082/oauth2/authorize
+            token-uri: http://localhost:8082/oauth2/token
+            user-info-uri: http://localhost:8082/userinfo
+            user-name-attribute: preferred_username
+
+
+  thymeleaf:
+    cache: false
+op:
+  endpoint:
+    authorize: http://localhost:8082/oauth2/authorize
+    token: http://localhost:8082/oauth2/token
+    userinfo: http://localhost:8082/userinfo
+    verify: http://localhost:8082/verify
+    ctid: http://localhost:8083/ctid/verify
+blockchain:
+  endpoint: http://localhost:8084/blockchain/log
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.client: DEBUG

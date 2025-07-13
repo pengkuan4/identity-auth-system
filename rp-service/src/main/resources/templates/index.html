@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>身份认证系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid #e1e8ed;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #6c757d;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            color: white;
+            background: #4a90e2;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #357abd;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 1.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>欢迎使用身份认证系统</h1>
+    <p>这是一个基于 OAuth2 和 Keycloak 的身份认证系统，集成 CTID 和区块链服务。</p>
+    <!-- <div th:if="${error}">
+        <p style="color: red;" th:text="${error}"></p>
+    </div> -->
+    <a href="/oauth2/authorization/keycloak" class="button">进入认证</a>
+</div>
+</body>
+</html>

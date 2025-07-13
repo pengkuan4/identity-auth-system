@@ -1,0 +1,23 @@
+server:
+  port: 8082
+spring:
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/your-realm
+          jwk-set-uri: http://localhost:8080/realms/your-realm/protocol/openid-connect/certs
+  thymeleaf:
+    cache: false  # 开发时禁用缓存
+    prefix: classpath:/templates/
+    suffix: .html
+ctid:
+  endpoint: http://localhost:8083/ctid/verify
+blockchain:
+  endpoint: http://localhost:8084/blockchain/log
+op:
+  redirect-uri: http://localhost:8081/login/oauth2/code/op-service
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
